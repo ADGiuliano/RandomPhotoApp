@@ -9,14 +9,28 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
+    private let randomPhotoImageView: UIImageView = {
+        let randomPhotoImageView = UIImageView()
         
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .white
-         
+        randomPhotoImageView.contentMode = .scaleAspectFill
+        randomPhotoImageView.backgroundColor = .white
         
-        return imageView
+        return randomPhotoImageView
+    }()
+    
+    private let randomPhotoImageButton: UIButton = {
+        let randomPhotoImageButton = UIButton()
+        
+        //  Button title
+        let rPBTitle = "randomPhoto"
+        randomPhotoImageButton.setTitle(rPBTitle, for: .normal)
+        randomPhotoImageButton.setTitleColor(.black, for: .normal)
+        
+        
+        // Button background
+        randomPhotoImageButton.backgroundColor = .white
+        
+        return randomPhotoImageButton
     }()
     
     
@@ -27,37 +41,65 @@ class ViewController: UIViewController {
         title = appTitle
         
         view.backgroundColor = .systemGray
-        view.addSubview(imageView)
         
-        let xValue = 0
-        let yValue = 0
-        let widthValue = 320
-        let heightValue = 320
+        //  Random Photo View
+        view.addSubview(randomPhotoImageView)
+        let photoXValue : Int = 0
+        let photoYValue : Int = 0
+        let photoWidthValue : Int = 320
+        let photoHeightValue : Int = 320
+        randomPhotoImageView.frame = CGRect(x: photoXValue,
+                                            y: photoYValue,
+                                            width: photoWidthValue,
+                                            height: photoHeightValue)
+        randomPhotoImageView.center = view.center
         
-        imageView.frame = CGRect(x: xValue,
-                                 y: yValue,
-                                 width: widthValue,
-                                 height: heightValue)
+        // Random Photo Button
+        view.addSubview(randomPhotoImageButton)
+        randomPhotoImageButton.addTarget(self,
+                                         action: #selector(didTapRPButton),
+                                         for: .touchUpInside)
         
-        imageView.center = view.center
-        
+        // Random Photo Function
         getRandomPhoto()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let buttonXValue : Int = 30
+        let buttonYValue : Int = Int(view.frame.size.height - 150 - view.safeAreaInsets.bottom)
+        let buttonWidthValue : Int = Int(view.frame.size.width - 60)
+        let buttonHeightValue : Int = 55
+        randomPhotoImageButton.frame = CGRect(x: buttonXValue,
+                                              y: buttonYValue,
+                                              width: buttonWidthValue,
+                                              height: buttonHeightValue)
+    }
+    
+    // Function for the button
+    // @objc is necessary to attach at the button
+    @objc func didTapRPButton()
+    {
+        getRandomPhoto()
+    }
+    
+    // Get Random photo core function
     func getRandomPhoto()
     {
         let urlString = "https://source.unsplash.com/random/600x600"
         
-        //  The ! indicate that we assume that the url is valid (exist)
+        //  ! indicate that we assume that the url is valid (exist)
         let url = URL(string: urlString)!
         
-        // if the data is null, return null (return)
-        guard let imageData = try? Data(contentsOf: url) else {
+        //  If the data is null, break the function
+        guard let imageData =
+                try? Data(contentsOf: url)
+        else
+        {
             return
         }
         
-        imageView.image =  UIImage(data: imageData)
-        
+        randomPhotoImageView.image =  UIImage(data: imageData)
     }
 }
 
