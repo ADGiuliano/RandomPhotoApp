@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         let randomPhotoImageButton = UIButton()
         
         //  Button title
-        let rPBTitle = "randomPhoto"
+        let rPBTitle = "New Photo"
         randomPhotoImageButton.setTitle(rPBTitle, for: .normal)
         randomPhotoImageButton.setTitleColor(.black, for: .normal)
         
@@ -32,6 +32,17 @@ class ViewController: UIViewController {
         
         return randomPhotoImageButton
     }()
+    
+    let backGroundColors : [UIColor] = [
+        .systemPink,
+        .systemRed,
+        .systemBlue,
+        .systemGray,
+        .systemGreen,
+        .systemYellow,
+        .systemPurple,
+        .systemOrange
+    ]
     
     
     override func viewDidLoad() {
@@ -81,6 +92,24 @@ class ViewController: UIViewController {
     @objc func didTapRPButton()
     {
         getRandomPhoto()
+        
+        changeRandomBackgroundColor()
+        
+        return
+    }
+    
+    func changeRandomBackgroundColor()
+    {
+        let actualBackgroundColor = view.backgroundColor
+        var newBackgroundColor = backGroundColors.randomElement()
+        
+        while (actualBackgroundColor == newBackgroundColor) {
+            newBackgroundColor = backGroundColors.randomElement()
+        }
+        
+        view.backgroundColor = newBackgroundColor
+        
+        return
     }
     
     // Get Random photo core function
