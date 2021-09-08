@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         let randomPhotoImageButton = UIButton()
         
         //  Button title
-        let rPBTitle = "New Photo"
+        let rPBTitle = NSLocalizedString("New Photo", comment: "")
         randomPhotoImageButton.setTitle(rPBTitle, for: .normal)
         randomPhotoImageButton.setTitleColor(.black, for: .normal)
         
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let appTitle = "Random Photo"
+        let appTitle = NSLocalizedString("Random Photo", comment: "")
         title = appTitle
         
         view.backgroundColor = .systemGray
